@@ -26,6 +26,8 @@ function App() {
 
           {coordinates.length > 0 && (
             <div className="mt-8">
+              <MapUrlGenerator coordinates={coordinates} />
+
               <h2 className="text-xl font-semibold mb-4">Extracted Coordinates</h2>
               <ul className="mb-6 space-y-2">
                 {coordinates.map((coord, index) => (
@@ -34,8 +36,6 @@ function App() {
                   </li>
                 ))}
               </ul>
-
-              <MapUrlGenerator coordinates={coordinates} />
             </div>
           )}
         </main>
