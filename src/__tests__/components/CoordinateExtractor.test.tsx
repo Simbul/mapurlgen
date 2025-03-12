@@ -1,17 +1,18 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import CoordinateExtractor from '../../components/CoordinateExtractor';
 import * as coordinateParser from '../../utils/coordinateParser';
+import { describe, test, expect, beforeEach, vi } from 'vitest';
 
 // Mock the coordinateParser module
-jest.mock('../../utils/coordinateParser');
+vi.mock('../../utils/coordinateParser');
 
 describe('CoordinateExtractor', () => {
-  const mockOnCoordinatesExtracted = jest.fn();
+  const mockOnCoordinatesExtracted = vi.fn();
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     // Default mock implementation
-    (coordinateParser.extractCoordinates as jest.Mock).mockReturnValue([]);
+    (coordinateParser.extractCoordinates as any).mockReturnValue([]);
   });
 
   test('renders the textarea and label', () => {
@@ -27,7 +28,7 @@ describe('CoordinateExtractor', () => {
       { latitude: 40.7295, longitude: -73.9965 }
     ];
 
-    (coordinateParser.extractCoordinates as jest.Mock).mockReturnValue(mockCoordinates);
+    (coordinateParser.extractCoordinates as any).mockReturnValue(mockCoordinates);
 
     render(<CoordinateExtractor onCoordinatesExtracted={mockOnCoordinatesExtracted} />);
 

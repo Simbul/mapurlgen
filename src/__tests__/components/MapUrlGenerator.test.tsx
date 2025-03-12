@@ -1,9 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import MapUrlGenerator from '../../components/MapUrlGenerator';
 import * as mapUrlGenerator from '../../utils/mapUrlGenerator';
+import { describe, test, expect, beforeEach, vi } from 'vitest';
 
 // Mock the mapUrlGenerator module
-jest.mock('../../utils/mapUrlGenerator');
+vi.mock('../../utils/mapUrlGenerator');
 
 describe('MapUrlGenerator', () => {
   const testCoordinates = [
@@ -12,10 +13,10 @@ describe('MapUrlGenerator', () => {
   ];
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     // Default mock implementations
-    (mapUrlGenerator.generateGoogleMapsUrl as jest.Mock).mockReturnValue('https://www.google.com/maps/dir/mock-url');
-    (mapUrlGenerator.generateOsrmUrl as jest.Mock).mockReturnValue('https://map.project-osrm.org/?mock-url');
+    (mapUrlGenerator.generateGoogleMapsUrl as any).mockReturnValue('https://www.google.com/maps/dir/mock-url');
+    (mapUrlGenerator.generateOsrmUrl as any).mockReturnValue('https://map.project-osrm.org/?mock-url');
   });
 
   test('renders warning message when less than 2 coordinates are provided', () => {
@@ -30,8 +31,8 @@ describe('MapUrlGenerator', () => {
     const googleMapsUrl = 'https://www.google.com/maps/dir/40.7308,-73.9973/40.7295,-73.9965';
     const osrmUrl = 'https://map.project-osrm.org/?loc=40.7308%2C-73.9973&loc=40.7295%2C-73.9965';
 
-    (mapUrlGenerator.generateGoogleMapsUrl as jest.Mock).mockReturnValue(googleMapsUrl);
-    (mapUrlGenerator.generateOsrmUrl as jest.Mock).mockReturnValue(osrmUrl);
+    (mapUrlGenerator.generateGoogleMapsUrl as any).mockReturnValue(googleMapsUrl);
+    (mapUrlGenerator.generateOsrmUrl as any).mockReturnValue(osrmUrl);
 
     render(<MapUrlGenerator coordinates={testCoordinates} />);
 
