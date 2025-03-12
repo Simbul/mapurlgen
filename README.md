@@ -32,7 +32,7 @@ A simple web application that extracts coordinates from text and generates map U
    ```
 3. Start the development server:
    ```
-   npm start
+   npm run dev
    ```
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
