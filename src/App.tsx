@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import CoordinateExtractor from './components/CoordinateExtractor';
 import MapUrlGenerator from './components/MapUrlGenerator';

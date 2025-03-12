@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import MapUrlGenerator from '../../components/MapUrlGenerator';
 import * as mapUrlGenerator from '../../utils/mapUrlGenerator';
