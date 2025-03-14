@@ -6,6 +6,25 @@ interface MapUrlGeneratorProps {
   coordinates: Coordinate[];
 }
 
+interface CopyButtonProps {
+  onClick: () => void;
+  title: string;
+}
+
+const CopyButton: React.FC<CopyButtonProps> = ({ onClick, title }) => {
+  return (
+    <button
+      onClick={onClick}
+      className="btn btn-circle"
+      title={title}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+      </svg>
+    </button>
+  );
+};
+
 const MapUrlGenerator: React.FC<MapUrlGeneratorProps> = ({ coordinates }) => {
   if (coordinates.length === 0) {
     return (
@@ -57,15 +76,10 @@ const MapUrlGenerator: React.FC<MapUrlGeneratorProps> = ({ coordinates }) => {
                   </svg>
                   Open in Google Maps
                 </a>
-                <button
+                <CopyButton
                   onClick={() => copyToClipboard(googleMapsUrl)}
-                  className="btn btn-circle"
                   title="Copy URL"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                  </svg>
-                </button>
+                />
               </div>
             </div>
           </div>
@@ -96,15 +110,10 @@ const MapUrlGenerator: React.FC<MapUrlGeneratorProps> = ({ coordinates }) => {
                   </svg>
                   Open in {coordinates.length === 1 ? "OpenStreetMap" : "OSRM"}
                 </a>
-                <button
+                <CopyButton
                   onClick={() => copyToClipboard(osrmUrl)}
-                  className="btn btn-circle"
                   title="Copy URL"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                  </svg>
-                </button>
+                />
               </div>
             </div>
           </div>
