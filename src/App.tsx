@@ -39,6 +39,24 @@ function App() {
             </div>
           )}
         </main>
+
+        <code>
+          Exploring Greenwich Village, New York City
+          ==================================
+
+          Morning Walk: Washington Square Park Area
+          -------------------
+          Started my day at Washington Square Park located at latitude: 40.7308 and longitude: -73.9973.
+          The iconic arch was beautiful! Later, I walked to the nearby NYU campus (latitude: 40.7295, longitude: -73.9965)
+          for a quick coffee.
+
+          Lunch Break: West Village
+          -------------------
+          Found a charming café for lunch.
+          Location details:
+            - latitude: 40.7352
+            - longitude: -74.0031
+        </code>
       </div>
     </div>
   );
