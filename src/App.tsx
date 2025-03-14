@@ -20,8 +20,9 @@ function App() {
   }, [coordinates, centerIndex]);
 
   const handleCoordinatesExtracted = (extractedCoordinates: Coordinate[]) => {
+    // Reset centerIndex when coordinates change to avoid stale references
+    setCenterIndex(extractedCoordinates.length > 0 ? extractedCoordinates.length - 1 : null);
     setCoordinates(extractedCoordinates);
-    // We no longer set centerIndex here, it's handled by the useEffect
   };
 
   // Handler for radio button changes
@@ -30,13 +31,24 @@ function App() {
   };
 
   // Calculate distance from center point
-  const getDistanceFromCenter = (coord: Coordinate): number | null => {
-    if (centerIndex === null || coordinates.length === 0) {
+  const getDistanceFromCenter = (coord: Coordinate, index: number): number | null => {
+    // If this is the center point, return null (no distance to itself)
+    if (centerIndex === index) {
       return null;
     }
 
-    const centerCoord = coordinates[centerIndex];
-    return calculateHaversineDistance(coord, centerCoord);
+    // Safety checks to prevent accessing undefined coordinates
+    if (centerIndex === null || !coordinates[centerIndex]) {
+      return null;
+    }
+
+    try {
+      const centerCoord = coordinates[centerIndex];
+      return calculateHaversineDistance(coord, centerCoord);
+    } catch (error) {
+      console.error('Error calculating distance:', error);
+      return null;
+    }
   };
 
   // Format distance for display
@@ -95,7 +107,7 @@ function App() {
                       </thead>
                       <tbody>
                         {coordinates.map((coord, index) => {
-                          const distance = getDistanceFromCenter(coord);
+                          const distance = getDistanceFromCenter(coord, index);
                           const isCenter = centerIndex === index;
 
                           return (
