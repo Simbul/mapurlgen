@@ -46,14 +46,21 @@ describe('MapUrlGenerator', () => {
     expect(screen.getByText('Google Maps')).toBeInTheDocument();
     expect(screen.getByText('OSRM')).toBeInTheDocument();
 
-    const googleMapsLink = screen.getByText(googleMapsUrl);
-    const osrmLink = screen.getByText(osrmUrl);
+    // Find the URL text displays
+    const googleMapsUrlText = screen.getByText(googleMapsUrl);
+    const osrmUrlText = screen.getByText(osrmUrl);
+    expect(googleMapsUrlText).toBeInTheDocument();
+    expect(osrmUrlText).toBeInTheDocument();
+
+    // Find the actual links by their text content
+    const googleMapsLink = screen.getByText('Open in Google Maps').closest('a');
+    const osrmLink = screen.getByText('Open in OSRM').closest('a');
 
     expect(googleMapsLink).toBeInTheDocument();
-    expect(googleMapsLink.getAttribute('href')).toBe(googleMapsUrl);
+    expect(googleMapsLink?.getAttribute('href')).toBe(googleMapsUrl);
 
     expect(osrmLink).toBeInTheDocument();
-    expect(osrmLink.getAttribute('href')).toBe(osrmUrl);
+    expect(osrmLink?.getAttribute('href')).toBe(osrmUrl);
   });
 
   test('renders Google Maps and OpenStreetMap URLs when a single coordinate is provided', () => {
@@ -71,13 +78,20 @@ describe('MapUrlGenerator', () => {
     expect(screen.getByText('Google Maps')).toBeInTheDocument();
     expect(screen.getByText('OpenStreetMap')).toBeInTheDocument();
 
-    const googleMapsLink = screen.getByText(googleMapsUrl);
-    const osmLink = screen.getByText(osmUrl);
+    // Find the URL text displays
+    const googleMapsUrlText = screen.getByText(googleMapsUrl);
+    const osmUrlText = screen.getByText(osmUrl);
+    expect(googleMapsUrlText).toBeInTheDocument();
+    expect(osmUrlText).toBeInTheDocument();
+
+    // Find the actual links by their text content
+    const googleMapsLink = screen.getByText('Open in Google Maps').closest('a');
+    const osmLink = screen.getByText('Open in OpenStreetMap').closest('a');
 
     expect(googleMapsLink).toBeInTheDocument();
-    expect(googleMapsLink.getAttribute('href')).toBe(googleMapsUrl);
+    expect(googleMapsLink?.getAttribute('href')).toBe(googleMapsUrl);
 
     expect(osmLink).toBeInTheDocument();
-    expect(osmLink.getAttribute('href')).toBe(osmUrl);
+    expect(osmLink?.getAttribute('href')).toBe(osmUrl);
   });
 });
