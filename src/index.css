@@ -11,9 +11,57 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 1rem !important;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Fix for SVG icon sizing and alignment */
+svg {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  position: relative;
+  top: -0.0625em; /* Slight vertical adjustment to align with text */
+}
+
+/* Fix for flex alignment with icons */
+.flex.items-center {
+  align-items: center !important;
+  display: flex !important;
+}
+
+.flex.items-center > svg {
+  margin-right: 0.5rem;
+}
+
+/* Specific icon size classes to ensure consistent sizing */
+.h-3, .w-3 {
+  height: 0.75rem !important;
+  width: 0.75rem !important;
+  min-height: 0.75rem !important;
+  min-width: 0.75rem !important;
+  max-height: 0.75rem !important;
+  max-width: 0.75rem !important;
+}
+
+.h-4, .w-4 {
+  height: 1rem !important;
+  width: 1rem !important;
+  min-height: 1rem !important;
+  min-width: 1rem !important;
+  max-height: 1rem !important;
+  max-width: 1rem !important;
+}
+
+.h-6, .w-6 {
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+  min-height: 1.5rem !important;
+  min-width: 1.5rem !important;
+  max-height: 1.5rem !important;
+  max-width: 1.5rem !important;
 }
