@@ -37,10 +37,11 @@ const CoordinateExtractor: React.FC<CoordinateExtractorProps> = ({ onCoordinates
       </div>
 
       <div className="p-4">
-        <div className="relative">
+        <div className="relative w-full">
           <textarea
             id="coordinate-input"
-            className="w-full h-40 p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 text-base"
+            style={{ height: '200px', minHeight: '200px', width: '100%' }}
             placeholder="Example: A park located at latitude: 40.7308 and longitude: -73.9973, near the NYU campus (latitude: 40.7295, longitude: -73.9965)"
             value={inputText}
             onChange={handleTextChange}
