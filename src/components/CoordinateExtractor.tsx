@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { extractCoordinates } from '../utils/coordinateParser';
 import { Coordinate } from '../utils/types';
 
@@ -8,11 +8,9 @@ interface CoordinateExtractorProps {
 
 const CoordinateExtractor: React.FC<CoordinateExtractorProps> = ({ onCoordinatesExtracted }) => {
   const [inputText, setInputText] = useState<string>('');
-  const [extractedCount, setExtractedCount] = useState<number>(0);
 
   useEffect(() => {
     const coordinates = extractCoordinates(inputText);
-    setExtractedCount(coordinates.length);
     onCoordinatesExtracted(coordinates);
   }, [inputText]);
 
