@@ -15,9 +15,16 @@ describe('mapUrlGenerator', () => {
       expect(url).toBe(expected);
     });
 
-    test('should return empty string for less than 2 coordinates', () => {
-      const url = generateGoogleMapsUrl([{ latitude: 40.7308, longitude: -73.9973 }]);
+    test('should generate place URL for a single coordinate', () => {
+      const singleCoord = [{ latitude: 40.7308, longitude: -73.9973 }];
+      const url = generateGoogleMapsUrl(singleCoord);
+      const expected = 'https://www.google.com/maps/place/40.7308,-73.9973/';
 
+      expect(url).toBe(expected);
+    });
+
+    test('should return empty string for empty coordinates array', () => {
+      const url = generateGoogleMapsUrl([]);
       expect(url).toBe('');
     });
 
@@ -42,9 +49,16 @@ describe('mapUrlGenerator', () => {
       expect(url).toBe(expected);
     });
 
-    test('should return empty string for less than 2 coordinates', () => {
-      const url = generateOsrmUrl([{ latitude: 40.7308, longitude: -73.9973 }]);
+    test('should generate OpenStreetMap search URL for a single coordinate', () => {
+      const singleCoord = [{ latitude: 40.7308, longitude: -73.9973 }];
+      const url = generateOsrmUrl(singleCoord);
+      const expected = 'https://www.openstreetmap.org/search?query=40.7308%2C+-73.9973';
 
+      expect(url).toBe(expected);
+    });
+
+    test('should return empty string for empty coordinates array', () => {
+      const url = generateOsrmUrl([]);
       expect(url).toBe('');
     });
 

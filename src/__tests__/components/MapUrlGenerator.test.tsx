@@ -12,6 +12,10 @@ describe('MapUrlGenerator', () => {
     { latitude: 40.7295, longitude: -73.9965 }
   ];
 
+  const singleCoordinate = [
+    { latitude: 40.7308, longitude: -73.9973 }
+  ];
+
   beforeEach(() => {
     vi.clearAllMocks();
     // Default mock implementations
@@ -19,15 +23,15 @@ describe('MapUrlGenerator', () => {
     (mapUrlGenerator.generateOsrmUrl as any).mockReturnValue('https://map.project-osrm.org/?mock-url');
   });
 
-  test('renders warning message when less than 2 coordinates are provided', () => {
-    render(<MapUrlGenerator coordinates={[{ latitude: 40.7308, longitude: -73.9973 }]} />);
+  test('renders warning message when no coordinates are provided', () => {
+    render(<MapUrlGenerator coordinates={[]} />);
 
-    expect(screen.getByText(/at least two coordinates are needed/i)).toBeInTheDocument();
+    expect(screen.getByText(/No coordinates available/i)).toBeInTheDocument();
     expect(mapUrlGenerator.generateGoogleMapsUrl).not.toHaveBeenCalled();
     expect(mapUrlGenerator.generateOsrmUrl).not.toHaveBeenCalled();
   });
 
-  test('renders Google Maps and OSRM URLs when coordinates are provided', () => {
+  test('renders Google Maps and OSRM URLs when multiple coordinates are provided', () => {
     const googleMapsUrl = 'https://www.google.com/maps/dir/40.7308,-73.9973/40.7295,-73.9965';
     const osrmUrl = 'https://map.project-osrm.org/?loc=40.7308%2C-73.9973&loc=40.7295%2C-73.9965';
 
@@ -50,5 +54,30 @@ describe('MapUrlGenerator', () => {
 
     expect(osrmLink).toBeInTheDocument();
     expect(osrmLink.getAttribute('href')).toBe(osrmUrl);
+  });
+
+  test('renders Google Maps and OpenStreetMap URLs when a single coordinate is provided', () => {
+    const googleMapsUrl = 'https://www.google.com/maps/place/40.7308,-73.9973/';
+    const osmUrl = 'https://www.openstreetmap.org/search?query=40.7308%2C+-73.9973';
+
+    (mapUrlGenerator.generateGoogleMapsUrl as any).mockReturnValue(googleMapsUrl);
+    (mapUrlGenerator.generateOsrmUrl as any).mockReturnValue(osmUrl);
+
+    render(<MapUrlGenerator coordinates={singleCoordinate} />);
+
+    expect(mapUrlGenerator.generateGoogleMapsUrl).toHaveBeenCalledWith(singleCoordinate);
+    expect(mapUrlGenerator.generateOsrmUrl).toHaveBeenCalledWith(singleCoordinate);
+
+    expect(screen.getByText('Google Maps')).toBeInTheDocument();
+    expect(screen.getByText('OpenStreetMap')).toBeInTheDocument();
+
+    const googleMapsLink = screen.getByText(googleMapsUrl);
+    const osmLink = screen.getByText(osmUrl);
+
+    expect(googleMapsLink).toBeInTheDocument();
+    expect(googleMapsLink.getAttribute('href')).toBe(googleMapsUrl);
+
+    expect(osmLink).toBeInTheDocument();
+    expect(osmLink.getAttribute('href')).toBe(osmUrl);
   });
 });

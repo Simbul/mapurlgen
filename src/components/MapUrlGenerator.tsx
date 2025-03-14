@@ -7,16 +7,21 @@ interface MapUrlGeneratorProps {
 }
 
 const MapUrlGenerator: React.FC<MapUrlGeneratorProps> = ({ coordinates }) => {
-  if (coordinates.length < 2) {
+  if (coordinates.length === 0) {
     return (
       <div className="text-yellow-600 bg-yellow-50 p-4 rounded-md">
-        At least two coordinates are needed to generate a route.
+        No coordinates available to generate map URLs.
       </div>
     );
   }
 
   const googleMapsUrl = generateGoogleMapsUrl(coordinates);
   const osrmUrl = generateOsrmUrl(coordinates);
+
+  // Display different messages based on number of coordinates
+  const urlTypeDescription = coordinates.length === 1
+    ? "location"
+    : "route";
 
   return (
     <div className="space-y-4">
@@ -38,7 +43,7 @@ const MapUrlGenerator: React.FC<MapUrlGeneratorProps> = ({ coordinates }) => {
         </div>
 
         <div className="border border-gray-200 rounded-md p-4">
-          <h3 className="font-medium mb-2">OSRM</h3>
+          <h3 className="font-medium mb-2">{coordinates.length === 1 ? "OpenStreetMap" : "OSRM"}</h3>
           <div className="flex items-center">
             <a
               href={osrmUrl}
