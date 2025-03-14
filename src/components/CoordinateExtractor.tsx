@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { extractCoordinates } from '../utils/coordinateParser';
 import { Coordinate } from '../utils/types';
 
@@ -14,7 +14,7 @@ const CoordinateExtractor: React.FC<CoordinateExtractorProps> = ({ onCoordinates
     const coordinates = extractCoordinates(inputText);
     setExtractedCount(coordinates.length);
     onCoordinatesExtracted(coordinates);
-  }, [inputText, onCoordinatesExtracted]);
+  }, [inputText]);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputText(e.target.value);
