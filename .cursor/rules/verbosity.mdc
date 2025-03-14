@@ -1,0 +1,6 @@
+---
+description: Control Chat verbosity
+globs: 
+alwaysApply: true
+---
+- When you apply changes, DO NOT give a summary of what you've done at the end
