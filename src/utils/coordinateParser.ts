@@ -14,8 +14,8 @@ export const extractCoordinates = (text: string): Coordinate[] => {
 
   // Pattern for "latitude: X, longitude: Y" or "latitude: X" and "longitude: Y" nearby
   // This regex looks for decimal numbers that follow the words "latitude:" and "longitude:"
-  const latitudeRegex = /latitude:\s*([-+]?\d+\.?\d*)/gi;
-  const longitudeRegex = /longitude:\s*([-+]?\d+\.?\d*)/gi;
+  const latitudeRegex = /["']?latitude["']?\s*:\s*([-+]?\d+\.?\d*)/gi;
+  const longitudeRegex = /["']?longitude["']?\s*:\s*([-+]?\d+\.?\d*)/gi;
 
   const latitudeMatches: number[] = [];
   const longitudeMatches: number[] = [];
